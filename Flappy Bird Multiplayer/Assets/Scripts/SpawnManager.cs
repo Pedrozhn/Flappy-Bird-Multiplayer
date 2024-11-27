@@ -4,23 +4,37 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    float clock;
+    float time;
     const float cooldown = 2;
 
-    [SerializeField] GameObject obstaclePrefab;
+    [SerializeField] GameObject[] obstaclePrefab;
 
     private void Update()
     {
-        if(clock <= 0)
+        spanw();
+    }
+    public void spanw()
+    {
+        if (time <=0)
         {
-            clock = cooldown;
+            float randomT = Random.Range(0, 1f);
+            GameObject towersellect = null;
 
-            Instantiate(obstaclePrefab, new Vector2(GameManager.instance.ScreenBounds.x, Random.Range(-2,2)), Quaternion.identity);
+            switch (randomT)
+            {
+                case <= 0.5f:
+                    towersellect = obstaclePrefab[0];
+                    break;
+                case >=0.5f:
+                    towersellect= obstaclePrefab[1];
+                    break;
+            }
+            Instantiate(towersellect);
+            time = cooldown;
         }
         else
         {
-            clock -= Time.deltaTime;
+            time-= Time.deltaTime;
         }
     }
-
 }
